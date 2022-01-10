@@ -6,9 +6,11 @@
 </head>
 
 <body>
+
     <div style="text-align: center;">
         <h1>Upload file to server </h1>
     </div>
+
     <div style="display: flex; justify-content: center;">
         <form onsubmit="event.preventDefault()" id="upload_form" enctype="multipart/form-data" method="post">
             <input type="file" name="myFile" id="myFile">
@@ -19,6 +21,8 @@
             <p id="loaded_n_total"></p>
         </form>
     </div>
+
+    <!-- Script -->
     <script>
         function _(el) {
             return document.getElementById(el);
