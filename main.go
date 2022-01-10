@@ -15,8 +15,10 @@ func main() {
 	r.HandleFunc("/", home)
 	http.ListenAndServe(":8080", r)
 }
+
 func home(w http.ResponseWriter, r *http.Request) {
 	fmt.Println(r.Method)
+
 	if r.Method == "GET" {
 		tpm, err := template.ParseFiles("index.html")
 		if err != nil {

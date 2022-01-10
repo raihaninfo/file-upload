@@ -2,19 +2,58 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>File Upload</title>
 </head>
 
 <body>
-
-    <form action="/" method="POST" enctype="multipart/form-data">
-        <input type="file" name="file" id="">
-        <input type="submit" value="Upload">
+    <div style="text-align: center;">
+        <h1>Upload file to server </h1>
+    </div>
+    <form id="upload_form" enctype="multipart/form-data" method="post">
+        <input type="file" name="file" id="myFile" onchange="uploadFile()">
+        <input type="submit" value="upload">
+        <br>
+        <progress id="progressBar" value="0" max="100" style="width:300px;"></progress>
+        <h3 id="status"></h3>
+        <p id="loaded_n_total"></p>
     </form>
+    <script>
+        function _(el) {
+            return document.getElementById(el);
+        }
 
-</body>
+        function uploadFile() {
+            var file = _("myFile").files[0];
+            //alert(file.name + " | " + file.size + " | " + file.type);
+            var formdata = new FormData();
+            formdata.append("myFile", file);
+            var ajax = new XMLHttpRequest();
+            ajax.upload.addEventListener("progress", progressHandler, false);
+            ajax.addEventListener("load", completeHandler, false);
+            ajax.addEventListener("error", errorHandler, false);
+            ajax.addEventListener("abort", abortHandler, false);
+            ajax.open("POST",
+            "http://192.168.0.18:8080/");
+            ajax.send(formdata);
+        }
 
-</html>
+        function progressHandler(event) {
+            _("loaded_n_total").innerHTML = "Uploaded " + event.loaded + " bytes of " + event.total;
+            var percent = (event.loaded / event.total) * 100;
+            _("progressBar").value = Math.round(percent);
+            _("status").innerHTML = Math.round(percent) + "% uploaded... please wait";
+        }
+
+        function completeHandler(event) {
+            _("status").innerHTML = event.target.responseText;
+            _("progressBar").value = 0; //wil clear progress bar after successful upload
+        }
+
+        function errorHandler(event) {
+            _("status").innerHTML = "Upload Failed";
+        }
+
+        function abortHandler(event) {
+            _("status").innerHTML = "Upload Aborted";
+        }
+    </script>
