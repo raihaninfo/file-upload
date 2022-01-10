@@ -1,4 +1,4 @@
-module fileupload
+module github.com/raihaninfo/File-upload
 
 go 1.17
 
