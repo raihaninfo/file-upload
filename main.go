@@ -20,7 +20,7 @@ func home(w http.ResponseWriter, r *http.Request) {
 	fmt.Println(r.Method)
 
 	if r.Method == "GET" {
-		tpm, err := template.ParseFiles("index.html")
+		tpm, err := template.ParseFiles("index.gohtml")
 		if err != nil {
 			panic(err)
 		}
