@@ -34,12 +34,6 @@ func home(w http.ResponseWriter, r *http.Request) {
 		defer file.Close()
 		fmt.Println(handler.Header)
 
-		// tempFile, err := ioutil.TempFile("files", "upload-*.png")
-		// if err != nil {
-		// 	panic(err)
-		// }
-		// defer tempFile.Close()
-
 		contenType := handler.Header["Content-Type"][0]
 		fmt.Println(contenType)
 		var tempFile *os.File
@@ -49,6 +43,8 @@ func home(w http.ResponseWriter, r *http.Request) {
 			tempFile, err = ioutil.TempFile("files/PDFs", "*.pdf")
 		} else if contenType == "image/png" {
 			tempFile, err = ioutil.TempFile("files/png", "*.png")
+		} else if contenType == "video/mp4" {
+			tempFile, err = ioutil.TempFile("files/video", "*.mp4")
 		}
 		fmt.Println("err", err)
 		defer tempFile.Close()
