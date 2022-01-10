@@ -29,7 +29,7 @@ func home(w http.ResponseWriter, r *http.Request) {
 
 	if r.Method == "POST" {
 		r.ParseMultipartForm(100)
-		file, handler, err := r.FormFile("file")
+		file, handler, err := r.FormFile("myFile")
 		if err != nil {
 			panic(err)
 		}
