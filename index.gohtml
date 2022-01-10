@@ -9,14 +9,16 @@
     <div style="text-align: center;">
         <h1>Upload file to server </h1>
     </div>
-    <form onsubmit="event.preventDefault()" id="upload_form" enctype="multipart/form-data" method="post">
-        <input type="file" name="myFile" id="myFile">
-        <input type="submit" name="submitFile" value="upload" onclick="uploadFile()">
-        <br>
-        <progress id="progressBar" value="0" max="100" style="width:300px;"></progress>
-        <h3 id="status"></h3>
-        <p id="loaded_n_total"></p>
-    </form>
+    <div style="display: flex; justify-content: center;">
+        <form onsubmit="event.preventDefault()" id="upload_form" enctype="multipart/form-data" method="post">
+            <input type="file" name="myFile" id="myFile">
+            <input type="submit" name="submitFile" value="upload" onclick="uploadFile()">
+            <br>
+            <progress id="progressBar" value="0" max="100" style="width:300px;"></progress>
+            <h3 id="status"></h3>
+            <p id="loaded_n_total"></p>
+        </form>
+    </div>
     <script>
         function _(el) {
             return document.getElementById(el);
