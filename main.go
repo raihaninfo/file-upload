@@ -21,18 +21,14 @@ func home(w http.ResponseWriter, r *http.Request) {
 
 	if r.Method == "GET" {
 		tpm, err := template.ParseFiles("index.gohtml")
-		if err != nil {
-			panic(err)
-		}
+		handleError(err)
 		tpm.Execute(w, nil)
 	}
 
 	if r.Method == "POST" {
 		r.ParseMultipartForm(100)
 		file, handler, err := r.FormFile("myFile")
-		if err != nil {
-			panic(err)
-		}
+		handleError(err)
 		defer file.Close()
 		fmt.Println(handler.Header)
 
@@ -52,13 +48,17 @@ func home(w http.ResponseWriter, r *http.Request) {
 		defer tempFile.Close()
 
 		fileBytes, err := ioutil.ReadAll(file)
-		if err != nil {
-			panic(err)
-		}
+		handleError(err)
 
 		tempFile.Write(fileBytes)
 		fmt.Fprintf(w, "File uploded")
 
 	}
 
+}
+
+func handleError(err error) {
+	if err != nil {
+		panic(err)
+	}
 }
